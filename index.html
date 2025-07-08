@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Elite Academy: Your gateway to mastering new skills with curated learning paths in Web Development, Data Science, and more. Join millions of students today.">
+    
+    <title>Elite Academy - Your Learning Path to Success</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet"> 
+<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.2/css/all.css">
+ 
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <style>
+        /* Remove hover animations from enroll buttons */
+        /* --- Google Material You Inspired Design System --- */
+        :root {
+            --primary-color: #0850c4;
+            --primary-container: #D3E3FD;
+            --on-primary-container: #001B3D;
+            --secondary-container: #e8def8;
+            --on-secondary-container: #1d192b;
+            --text-color-primary: #333333;
+            --text-color-secondary: #444746;
+            --surface-color: #fbf8fd;
+            --surface-variant-color: #e7e0ec;
+            --outline-color: #848286;
+            --bg-color: #ffffff;
+            --font-family: 'Plus Jakarta Sans', sans-serif;
+            --radius-md: 16px;
+            --radius-lg: 32px;
+            --shadow-1: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+            --shadow-2: 0 4px 8px 0 rgba(0, 0, 0, .15);
+            --shadow-3: 0 8px 24px 0 rgba(0, 0, 0, .15);
+            --transition-speed: 0.4s;
+        }
+
+        /* --- Base & Reset --- */
+        html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font-family);
+            line-height: 1.7;
+            color: var(--text-color-secondary);
+            background-color: var(--bg-color);
+            overflow-x: hidden;
+        }
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; }
+        h1, h2, h3 { color: var(--text-color-primary); font-weight: 700; }
+        .sr-only {
+            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+            overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;
+        }
+
+        /* --- Preloader --- */
+        .preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-color); z-index: 9999; display: flex;
+            align-items: center; justify-content: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        .preloader.loaded { opacity: 0; visibility: hidden; }
+        .spinner {
+            width: 50px; height: 50px; border: 5px solid var(--primary-container);
+            border-top-color: var(--primary-color); border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        /* --- Login Section --- */
+        #login-section {
+            position: fixed;
+            line-height: 1.1;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--surface-color);
+            z-index: 10001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        #login-section.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .login-container {
+            background-color: var(--bg-color);
+            padding: 30px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-3);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .login-logo {
+            margin-bottom: 30px;
+        }
+
+        .login-logo img {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 15px;
+        }
+
+        .login-logo h1 {
+            font-size: 1.8rem;
+            color: var(--text-color-primary);
+            margin-bottom: 5px;
+        }
+
+        .login-logo p {
+            color: var(--text-color-secondary);
+            font-size: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-color-primary);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid var(--outline-color);
+            border-radius: var(--radius-lg);
+            outline: none;
+            font-size: 16px;
+            background-color: #f7f7f7;
+            transition: all 0.2s ease;
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px var(--primary-container);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: var(--radius-lg);
+            background-image: linear-gradient(45deg, #0B57D0, #4a8dff);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .3s;
+            margin-top: 10px;
+        }
+
+        .login-btn:hover {
+            transform: scale(1.03);
+            box-shadow: var(--shadow-2);
+        }
+
+        .error-message {
+            color: #d93025;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: block;
+            min-height: 1em;
+        }
+
+        /* --- Headers & Navigation --- */
+        .main-header {
+            background-color: transparent; position: fixed; width: 100%; top: 0; z-index: 1000;
+            transition: background-color var(--transition-speed), box-shadow var(--transition-speed), border-bottom-color var(--transition-speed);
+        }
+        .main-header.scrolled {
+            background-color: rgba(251, 248, 253, 0.979);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-1);
+            border-bottom: 1px solid #e4e4e4;
+        }
+        .desktop-header { display: block; }
+        .mobile-header { display: none; }
+        .desktop-nav { display: flex; justify-content: space-between; align-items: center; height: 70px; }
+        .logo { font-size: 26px; text-decoration: none; font-weight: 600; color: var(--text-color-primary); font-family: var(--font-family); }
+        .logo span { font-size: 26px; text-decoration: none; font-weight: 600; color: var(--text-color-primary); font-family: var(--font-family); }
+        .search-container { flex-grow: 1; max-width: 500px; margin: 0 2rem; position: relative; }
+        .search-container .fa-magnifying-glass { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--text-color-secondary); pointer-events: none; }
+        .search-container input {
+            width: 100%; padding: 14px 20px 14px 50px; border: 1px solid transparent; border-radius: var(--radius-lg);
+            outline: none; font-size: 16px; background-color: #ffffffe8; transition: all 0.2s ease;
+        }
+        .search-container input:focus { background-color: #fff; box-shadow: var(--shadow-2); border-color: var(--primary-container); }
+        .nav-actions { display: flex; align-items: center; gap: 1rem; }
+        .nav-actions a { text-decoration: none; color: var(--text-color-primary); font-weight: 500; transition: color 0.2s; }
+        .nav-actions a:hover { color: var(--primary-color); }
+        .signin-btn {
+            background-image: linear-gradient(45deg, #0B57D0, #4a8dff);
+            padding: 10px 24px; border-radius: var(--radius-lg); transition: all .3s; font-weight: 600; text-decoration: none; color: white;
+            border: none; cursor: pointer;
+        }
+        .signin-btn:hover { transform: scale(1.05); box-shadow: var(--shadow-2); color: white; }
+        
+        /* --- Mobile Search Overlay --- */
+        .search-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgb(255, 255, 255); backdrop-filter: blur(5px);
+            z-index: 2000; display: flex; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden; transition: opacity 0.3s ease;
+        }
+        .search-overlay.active { opacity: 1; visibility: visible; }
+        .search-overlay-content { width: 90%; max-width: 500px; }    
+        .search-overlay-content input { width: 100%; padding: 20px; font-size: 1.2rem; border: 2px solid var(--outline-color); border-radius: var(--radius-lg); outline: none; }
+        .search-overlay-close { position: absolute; top: 20px; right: 20px; font-size: 2.5rem; cursor: pointer; color: var(--text-color-primary); transition: transform 0.2s; }
+        .search-overlay-close:hover { transform: rotate(90deg); }
+        
+        /* --- Hero Section --- */
+        .hero {
+            position: relative; min-height: 90vh; display: flex; align-items: center; padding: 120px 0 60px; text-align: center;
+            background: linear-gradient(135deg, rgba(251, 248, 253, 0.9), rgba(251, 248, 253, 0.9)), 
+                        url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            overflow: hidden;
+        }
+        .hero-bg-shape {
+            position: absolute; width: 200px; height: 200px;
+            background: var(--primary-container); border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            opacity: 0.5; left: 10%; top: 20%; z-index: 0;
+            animation: float 6s ease-in-out infinite, morph 8s ease-in-out infinite;
+        }
+        .hero .container { position: relative; z-index: 1; }
+        .hero h1 { font-size: clamp(2.8rem, 6vw, 4.5rem); margin-bottom: 20px; font-weight: 800; line-height: 1.2; }
+        .hero .typed-text { color: var(--primary-color); }
+        .hero p { font-size: 1.25rem; max-width: 700px; margin: 0 auto 40px; color: var(--text-color-primary); }
+        .cta-button {
+            display: inline-block; padding: 18px 40px; background-image: linear-gradient(45deg, #0B57D0, #4a8dff);
+            color: white; border-radius: var(--radius-lg); text-decoration: none; font-weight: 600; font-size: 1.1rem;
+            box-shadow: var(--shadow-1); position: relative;
+        }
+
+        /* --- Section Styling --- */
+        .section { padding: 100px 0; }
+        .section-title { text-align: center; margin-bottom: 60px; padding: 0 5%; }
+        .section-title h2 { font-size: clamp(2.2rem, 5vw, 3rem); margin-bottom: 15px; position: relative; display: inline-block; }
+        .section-title h2::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 80px; height: 4px; background: var(--primary-color); border-radius: 2px; }
+        .section-title p { max-width: 700px; margin: 0 auto; font-size: 1.1rem; }
+
+        /* --- Stats Section --- */
+        #stats { background-color: var(--primary-container); }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; text-align: center; }
+        .stat-item h3 { font-size: 3rem; color: var(--primary-color); font-weight: 800; margin-bottom: 5px; }
+        .stat-item p { font-size: 1.1rem; color: var(--on-primary-container); font-weight: 500; }
+
+        /* --- Course Category & Filter Section --- */
+        .category-tabs { display: flex; justify-content: center; gap: 1rem; margin-bottom: 40px; flex-wrap: wrap; }
+        .tab-btn {
+            padding: 10px 20px; font-size: 1rem; font-weight: 600;
+            border: 2px solid var(--outline-color); border-radius: var(--radius-lg);
+            background-color: transparent; color: var(--outline-color);
+            cursor: pointer; transition: all var(--transition-speed) ease;
+        }
+        .tab-btn:hover { background-color: var(--primary-container); border-color: var(--primary-color); color: var(--on-primary-container); }
+        .tab-btn.active { background-color: var(--primary-color); color: white; border-color: var(--primary-color); }
+        .course-grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        .course-card {
+            background-color: #fff; border-radius: var(--radius-md); box-shadow: var(--shadow-1);
+            display: flex; flex-direction: column; overflow: hidden;
+            opacity: 1; transform: scale(1);
+            transition: all 0.4s ease, transform var(--transition-speed), box-shadow var(--transition-speed);
+        }
+        .course-card.hidden { opacity: 0; transform: scale(0.9); height: 0; padding: 0; margin: 0; border: 0; pointer-events: none; }
+        .course-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-3); }
+        .course-image { height: 180px; overflow: hidden; position: relative; }
+        .course-image img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+        .course-card:hover .course-image img { transform: scale(1.05); }
+        .bestseller-tag {
+            position: absolute; top: 12px; left: 12px; z-index: 2;
+            background-color: var(--secondary-container); color: var(--on-secondary-container);
+            padding: 5px 12px; border-radius: var(--radius-lg); font-size: 12px; font-weight: 600;
+        }
+        .course-info { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+        .course-title { font-size: 1.1rem; margin-bottom: 8px; font-weight: 600; line-height: 1.4; }
+        .course-instructor { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; margin-bottom: 15px; }
+        .course-instructor img { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; }
+        .course-details { display: flex; gap: 20px; font-size: 0.9rem; margin-top: auto; padding-top: 15px; border-top: 1px solid var(--surface-variant-color); }
+        .course-details i { margin-right: 5px; color: var(--primary-color); }
+        .course-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; overflow: hidden; }
+        .course-price { font-weight: 700; color: var(--primary-color); font-size: 1.2rem; }
+        .course-meta .cta-button {
+            padding: 8px 16px; font-size: 0.9rem;
+            opacity: 0; transform: translateY(10px);
+            transition: opacity var(--transition-speed), transform var(--transition-speed);
+        }
+        .course-card:hover .course-meta .cta-button { opacity: 1; transform: translateY(0); }
+
+        /* --- Testimonial Section --- */
+        #testimonials { background-color: var(--surface-color); }
+        .testimonial-swiper { padding-bottom: 50px; }
+        .testimonial-card { background: #fff; padding: 30px; border-radius: var(--radius-md); box-shadow: var(--shadow-1); text-align: center; position: relative; }
+        .testimonial-card::before { content: '"'; position: absolute; top: 20px; left: 20px; font-size: 4rem; color: var(--primary-container); font-family: serif; line-height: 1; opacity: 0.5; }
+        .testimonial-author img { width: 70px; height: 70px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; border: 3px solid var(--primary-container); }
+        .testimonial-text { font-style: italic; margin-bottom: 20px; position: relative; }
+        .swiper-nav-btn { color: var(--primary-color); width: 44px; height: 44px; }
+        .swiper-nav-btn::after { font-size: 1.2rem; font-weight: bold; }
+        .swiper-pagination-bullet-active { background-color: var(--primary-color); }
+
+        /* --- Final CTA Section --- */
+        #join-now {
+            padding: 80px 0; background-image: linear-gradient(45deg, #0c2b57, var(--primary-color));
+            color: #fff; text-align: center; position: relative; overflow: hidden;
+        }
+        #join-now::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1350&q=80') center center/cover; opacity: 0.1; z-index: 0; }
+        #join-now .container { position: relative; z-index: 1; }
+        #join-now h2 { color: #fff; margin-bottom: 20px; }
+        #join-now p { max-width: 600px; margin: 20px auto 30px; opacity: 0.9; }
+        #join-now .cta-button { background: #fff; color: var(--primary-color); border: 2px solid white; }
+        #join-now .cta-button:hover { background: transparent; color: white; }
+
+        /* --- Footer --- */
+        footer { background-color: #0a0a0a; color: #e0e0e0; padding: 60px 0 20px; }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; margin-bottom: 40px; }
+        .footer-column h3 { color: #fff; margin-bottom: 15px; position: relative; padding-bottom: 10px; }
+        .footer-column h3::after { content: ''; position: absolute; bottom: 0; left: 0; width: 40px; height: 2px; background: var(--primary-color); }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 8px; }
+        .footer-links a { color: #e0e0e0; text-decoration: none; transition: color 0.3s, transform 0.3s; display: inline-block; }
+        .footer-links a:hover { color: var(--primary-container); transform: translateX(5px); }
+        .footer-links i { margin-right: 8px; width: 20px; text-align: center; }
+        .copyright { text-align: center; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 20px; font-size: 0.9rem; opacity: 0.8; }
+
+        /* --- Bottom Navigation Bar --- */
+        .bottom-nav {
+            display: none; position: fixed; bottom: 0; left: 0; width: 100%;
+            background-color: var(--surface-color); box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.08);
+            z-index: 1000; padding: 8px 0; border-top: 1px solid var(--surface-variant-color);
+            padding-bottom: calc(8px + env(safe-area-inset-bottom));
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+        .bottom-nav-links { display: flex; justify-content: space-around; align-items: center; }
+        .bottom-nav a { flex: 1; display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--text-color-secondary); font-size: 0.7rem; padding: 8px 4px; border-radius: var(--radius-lg); transition: all 0.3s ease; }
+        .bottom-nav a i { font-size: 22px; margin-bottom: 2px; }
+        .bottom-nav a.active { color: var(--primary-color); background-color: var(--primary-container); }
+        .bottom-nav a.active i, .bottom-nav a.active span { color: var(--on-primary-container); }
+        
+        /* --- Responsive Design --- */
+        @media (max-width: 768px) {
+            body { padding-bottom: 70px; }
+            .desktop-header { display: none; }
+            .mobile-header { display: flex; justify-content: space-between; align-items: center; height: 70px; padding: 0 5%; }
+            .mobile-header-icons i { font-size: 24px; cursor: pointer; color: var(--text-color-primary); }
+            .bottom-nav { display: block; }
+            .category-tabs {
+                justify-content: flex-start; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch;
+                padding: 0 5% 15px 5%; margin-left: -5%; width: 100vw;
+                scrollbar-width: none;
+            }
+            .category-tabs::-webkit-scrollbar { display: none; }
+            .tab-btn { flex-shrink: 0; }
+        }
+        
+        @media (max-width: 550px) {
+            .course-grid { grid-template-columns: 1fr; padding: 0 1%; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-content { grid-template-columns: 1fr; text-align: center; }
+            .footer-column h3::after { left: 50%; transform: translateX(-50%); }
+        }
+
+        @media (max-width: 530px) {
+            .course-grid {
+                grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 0 2.9%;
+            }
+            .course-card .course-image { height: 100px; }
+            .course-card .course-info { padding: 12px; }
+            .course-card .course-title { font-size: 0.85rem; line-height: 1.3; margin-bottom: 5px; }
+            .course-instructor { font-size: 0.75rem; gap: 5px; margin-bottom: 10px; }
+            .course-instructor img { width: 20px; height: 20px; }
+            .course-details { font-size: 0.7rem; flex-direction: column; gap: 5px; padding-top: 8px; }
+            .course-details i { margin-right: 3px; }
+            .course-price { font-size: 1rem; }
+            .course-meta .cta-button { display: none; }
+            .course-card:hover .course-meta .cta-button { display: none; }
+        }
+
+        /* --- Animations --- */
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        @keyframes morph { 0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; } 50% { border-radius: 60% 40% 30% 70% / 60% 70% 30% 40%; } }
+        
+        /* --- Enrollment Modal Styles --- */
+        .enrollment-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .enrollment-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 29px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: var(--shadow-3);
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        /* Hide scrollbar but keep functionality */
+        .modal-content {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .modal-content::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Ensure modal content is scrollable */
+        .modal-content {
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Prevent body scrolling when modal is open */
+        body.modal-open {
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-color-secondary);
+            transition: color 0.2s;
+        }
+
+        .close-modal:hover {
+            color: var(--primary-color);
+        }
+
+        .enrollment-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-color-primary);
+        }
+
+        .form-group .required {
+            color: #d93025;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--outline-color);
+            border-radius: var(--radius-lg);
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px var(--primary-container);
+        }
+
+        .submit-enrollment {
+            background-image: linear-gradient(45deg, #0B57D0, #4a8dff);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: var(--radius-lg);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .submit-enrollment:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-2);
+        }
+
+        .success-message {
+            text-align: center;
+            padding: 20px;
+            display: none;
+        }
+
+        .success-message i {
+            color: #4CAF50;
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .success-message h3 {
+            color: var(--text-color-primary);
+            margin-bottom: 10px;
+        }
+
+        .success-message p {
+            margin-bottom: 20px;
+        }
+
+        .close-success {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .close-success:hover {
+            background-color: #0a4ebd;
+        }
+        
+        /* --- Button Adjustments --- */
+        /* Remove hover animations from enroll buttons */
+        .course-meta .cta-button {
+            opacity: 1 !important;
+            transform: none !important;
+            transition: none !important;
+        }
+        
+        /* Make enroll button always visible on all devices */
+        .course-meta .cta-button {
+            display: inline-block !important;
+        }
+        
+        /* Adjust login button sizes */
+        .login-btn, .signin-btn {
+            padding: 12px 24px;
+            font-size: 1rem;
+        }
+        
+        /* Remove floating animation from course cards */
+        .course-card:hover {
+            transform: none !important;
+        }
+        
+        /* Ensure consistent button appearance */
+        .cta-button, .tab-btn, .signin-btn, .login-btn, .submit-enrollment {
+            margin: 8px 6px;
+            padding: 12px 24px;
+            display: inline-block;
+            transform: none !important;
+            transition: none !important;
+        }
+        
+        /* Mobile specific adjustments */
+        @media (max-width: 768px) {
+            .course-meta .cta-button {
+                padding: 8px 16px;
+                font-size: 19px;
+            }
+            
+            .login-btn, .signin-btn {
+                padding: 20px 30px;
+            }
+        }
+        
+        @media (max-width: 530px) {
+            .course-meta .cta-button {
+                padding: 6px 8px;
+                font-size: 8px;
+            }
+        }
+
+   </style>
+   
+</head>
+<body id="home">
+
+    <div class="preloader" id="preloader"><div class="spinner"></div></div>
+
+    <!-- NEW: Login Section -->
+    <section id="login-section">
+        <div class="login-container">
+            <form id="login-form" novalidate>
+                <div class="login-logo">
+                    <img src="Web-Images/output-onlinepngtools (9).png" alt="Logo">
+                    <h1>Welcome to Elite Academy</h1>
+                    <p>Please sign in to continue</p>
+                </div>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                    <small class="error-message"></small>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                    <small class="error-message"></small>
+                </div>
+                <div class="form-group">
+                    <label for="password">6-Digit Password</label>
+                    <input type="password" id="password" name="password" required maxlength="6" pattern="\d{6}">
+                    <small class="error-message"></small>
+                </div>
+                <button type="submit" class="login-btn">Sign In</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- NEW: Wrapper for main content, hidden by default -->
+    <div id="main-content-wrapper" style="display: none;">
+        <header class="main-header" id="main-header">
+            <div class="desktop-header">
+                <div class="container">
+                    <nav class="desktop-nav">
+                        <a href="#home" class="logo" style="display: flex; align-items: center; gap: 8px;">
+                            <img src="Web-Images/output-onlinepngtools (9).png" alt="Logo" style="width: 45px; height: 45px;">
+                            Elite Academy
+                        </a>
+                        
+                        <div class="search-container">
+                            <label for="search-box" class="sr-only">Search</label>
+                            <i class="fa-regular fa-magnifying-glass"></i>
+                            <input type="text" id="search-box" placeholder="Search for anything..." aria-label="Search">
+                        </div>
+                        <div class="nav-actions">
+                            <a href="#categories">Courses</a>
+                            <a href="#testimonials">Reviews</a>
+                            <a href="#join-now">Join</a>
+                            <a href="#" class="signin-btn" id="auth-button">Sign In</a>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+            <div class="mobile-header">
+                <a href="#home" class="logo" style="display: flex; align-items: center; gap: 8px;">
+                    <img src="Web-Images/output-onlinepngtools (9).png" alt="Logo" style="width: 45px; height: 45px;">
+                    <span>Elite Academy</span>
+                </a>
+                <div class="mobile-header-icons">
+                    <i class="fa-regular fa-magnifying-glass" id="mobile-search-icon"></i>
+                </div>
+            </div>
+        </header>
+
+        <div class="search-overlay" id="search-overlay">
+            <i class="fa-regular fa-xmark search-overlay-close" id="search-overlay-close"></i>
+            <div class="search-overlay-content">
+                <input type="text" placeholder="Search courses, categories..." autofocus>
+            </div>
+        </div>
+
+        <main>
+            <section class="hero section" id="home">
+                <div class="hero-bg-shape"></div>
+                <div class="container">
+                    <h1 class="reveal">Find Your Path to<br>a <span class="typed-text"></span></h1>
+                    <p class="reveal">Go from beginner to pro with expert-led courses, hands-on projects, and a supportive community. Your future starts here.</p>
+                    <a href="#categories" class="cta-button reveal">Explore Courses</a>
+                </div>
+            </section>
+
+            <section class="section" id="stats">
+                <div class="container">
+                    <div class="stats-grid">
+                        <div class="stat-item reveal"> <h3 data-target="1200">+</h3> <p>Expert-Led Courses</p> </div>
+                        <div class="stat-item reveal"> <h3 data-target="5">M+</h3> <p>Happy Students</p> </div>
+                        <div class="stat-item reveal"> <h3 data-target="95">%</h3> <p>Completion Rate</p> </div>
+                        <div class="stat-item reveal"> <h3 data-target="250">k+</h3> <p>5-Star Reviews</p> </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="categories">
+                <div class="container">
+                    <div class="section-title reveal">
+                        <h2>Explore Our Courses</h2>
+                        <p>Hand-picked courses to help you learn a new skill, chosen by thousands of students.</p>
+                    </div>
+                    <div class="category-tabs reveal">
+                        <button class="tab-btn active" data-category="all">All</button>
+                        <button class="tab-btn" data-category="webdev">Web Development</button>
+                        <button class="tab-btn" data-category="datasci">Data Science</button>
+                        <button class="tab-btn" data-category="design">UI/UX Design</button>
+                        <button class="tab-btn" data-category="cloud">Cloud Engineering</button>
+                    </div>
+                    <div class="course-grid">
+                        <div class="course-card reveal" data-category="webdev"><div class="course-image"><span class="bestseller-tag">Bestseller</span><img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80" alt="Web Development" loading="lazy"></div><div class="course-info"><h3 class="course-title">The Complete Web Development Bootcamp</h3><div class="course-instructor"><img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Instructor" loading="lazy"><span>Angela Yu</span></div><div class="course-details"><span><i class="fa-regular fa-star"></i> 4.9 (12k)</span><span><i class="fa-regular fa-book"></i> 45 Lessons</span></div><div class="course-meta"><div class="course-price">$49.99</div><a href="#" class="cta-button">Enroll Now</a></div></div></div>
+                        <div class="course-card reveal" data-category="datasci"><div class="course-image"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="Data Science" loading="lazy"></div><div class="course-info"><h3 class="course-title">Python for Data Science & Machine Learning</h3><div class="course-instructor"><img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Instructor" loading="lazy"><span>Jose Portilla</span></div><div class="course-details"><span><i class="fa-regular fa-star"></i> 4.8 (8k)</span><span><i class="fa-regular fa-book"></i> 38 Lessons</span></div><div class="course-meta"><div class="course-price">$59.99</div><a href="#" class="cta-button">Enroll Now</a></div></div></div>
+                        <div class="course-card reveal" data-category="design"><div class="course-image"><img src="https://images.unsplash.com/photo-1541462608143-67571c6738dd?auto=format&fit=crop&w=800&q=80" alt="UX Design" loading="lazy"></div><div class="course-info"><h3 class="course-title">Modern UX/UI Design with Figma</h3><div class="course-instructor"><img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Instructor" loading="lazy"><span>Anna Scott</span></div><div class="course-details"><span><i class="fa-regular fa-star"></i> 4.9 (5k)</span><span><i class="fa-regular fa-book"></i> 25 Lessons</span></div><div class="course-meta"><div class="course-price">$44.99</div><a href="#" class="cta-button">Enroll Now</a></div></div></div>
+                        <div class="course-card reveal" data-category="webdev"><div class="course-image"><span class="bestseller-tag">New</span><img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=800&q=80" alt="React JS" loading="lazy"></div><div class="course-info"><h3 class="course-title">React JS: The Ultimate Guide (Hooks & Redux)</h3><div class="course-instructor"><img src="https://randomuser.me/api/portraits/men/46.jpg" alt="Instructor" loading="lazy"><span>Max S.</span></div><div class="course-details"><span><i class="fa-regular fa-star"></i> 4.7 (6k)</span><span><i class="fa-regular fa-book"></i> 30 Lessons</span></div><div class="course-meta"><div class="course-price">$39.99</div><a href="#" class="cta-button">Enroll Now</a></div></div></div>
+                        <div class="course-card reveal" data-category="cloud"><div class="course-image"><img src="https://images.unsplash.com/photo-1590902731803-0d6ba56a3e26?auto=format&fit=crop&w=800&q=80" alt="Cloud Engineering" loading="lazy"></div><div class="course-info"><h3 class="course-title">AWS Certified Solutions Architect - Associate</h3><div class="course-instructor"><img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Instructor" loading="lazy"><span>Stephane Maarek</span></div><div class="course-details"><span><i class="fa-regular fa-star"></i> 4.9 (21k)</span><span><i class="fa-regular fa-book"></i> 55 Lessons</span></div><div class="course-meta"><div class="course-price">$69.99</div><a href="#" class="cta-button">Enroll Now</a></div></div></div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="section" id="testimonials">
+                <div class="container">
+                    <div class="section-title reveal"><h2>Why Students Love Elite Academy</h2><p>We're proud to have achieved a 4.8/5 star rating from over 250,000 students.</p></div>
+                    <div class="swiper testimonial-swiper reveal">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-author"><img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Jane Smith" loading="lazy"><h4>Jane Smith</h4><p>Web Developer</p></div><p class="testimonial-text">"Elite Academy transformed my career! The courses are well-structured, the instructors are top-notch, and the hands-on projects gave me real-world experience."</p></div></div>
+                            <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-author"><img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Davis" loading="lazy"><h4>Michael Davis</h4><p>Data Analyst</p></div><p class="testimonial-text">"I always struggled with data science, but Elite Academy made it so accessible. I landed my dream job thanks to their comprehensive learning path."</p></div></div>
+                            <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-author"><img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Anna Scott" loading="lazy"><h4>Anna Scott</h4><p>UI/UX Designer</p></div><p class="testimonial-text">"The UI/UX course was fantastic! I learned so much about user research and creating intuitive designs. Highly recommend Elite Academy to anyone!"</p></div></div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                        <div class="swiper-button-next swiper-nav-btn"></div><div class="swiper-button-prev swiper-nav-btn"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="join-now">
+                <div class="container reveal">
+                    <h2>Start Your Learning Journey Today</h2>
+                    <p>Join millions of learners and get access to our full library of courses, learning paths, and expert instructors.</p>
+                    <a href="#" class="cta-button">Join Now for Free</a>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="container"><div class="footer-content"><div class="footer-column"><h3>Elite Academy</h3><p>Your gateway to mastering new skills with curated learning paths.</p></div><div class="footer-column"><h3>Quick Links</h3><ul class="footer-links"><li><a href="#categories"><i class="fa-regular fa-graduation-cap"></i> Courses</a></li><li><a href="#testimonials"><i class="fa-regular fa-comment"></i> Reviews</a></li><li><a href="#"><i class="fa-regular fa-circle-info"></i> About Us</a></li><li><a href="#"><i class="fa-regular fa-envelope"></i> Contact</a></li></ul></div><div class="footer-column"><h3>Resources</h3><ul class="footer-links"><li><a href="#"><i class="fa-regular fa-blog"></i> Blog</a></li><li><a href="#"><i class="fa-regular fa-circle-question"></i> FAQs</a></li><li><a href="#"><i class="fa-regular fa-headset"></i> Support</a></li><li><a href="#"><i class="fa-regular fa-lock"></i> Privacy Policy</a></li></ul></div><div class="footer-column"><h3>Connect With Us</h3><ul class="footer-links"><li><a href="#"><i class="fa-brands fa-facebook"></i> Facebook</a></li><li><a href="#"><i class="fa-brands fa-twitter"></i> Twitter</a></li><li><a href="#"><i class="fa-brands fa-linkedin"></i> LinkedIn</a></li><li><a href="#"><i class="fa-brands fa-instagram"></i> Instagram</a></li></ul></div></div><div class="copyright"><p>© 2025 Elite Academy. All rights reserved.</p></div></div>
+        </footer>
+
+        <nav class="bottom-nav">
+            <div class="bottom-nav-links">
+                <a href="#home" class="active"><i class="fa-regular fa-house"></i><span>Home</span></a>
+                <a href="#categories"><i class="fa-regular fa-layer-group"></i><span>Courses</span></a>
+                <a href="#testimonials"><i class="fa-regular fa-comment"></i><span>Reviews</span></a>
+                <a href="#"><i class="fa-regular fa-user-circle"></i><span>Account</span></a>
+            </div>
+        </nav>
+    </div>
+    
+    <!-- Enrollment Modal -->
+<div class="enrollment-modal" id="enrollment-modal">
+    <div class="modal-content">
+        <span class="close-modal" id="close-modal">&times;</span>
+        
+        <div id="enrollment-form-container">
+            <h2>Complete Your Enrollment</h2>
+            <p>Please review your information and submit</p>
+            
+            <form id="enrollment-form" class="enrollment-form" action="https://api.web3forms.com/submit" method="POST">
+                <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY">
+                <input type="hidden" name="redirect" value="https://yourwebsite.com/thank-you">
+                <input type="hidden" name="course_title" id="enrollment-course-title">
+                <input type="hidden" name="course_instructor" id="enrollment-course-instructor">
+                <input type="hidden" name="course_price" id="enrollment-course-price">
+                <input type="hidden" name="course_category" id="enrollment-course-category">
+                
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" name="name" id="enrollment-name" readonly>
+                </div>
+                
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" id="enrollment-email" readonly>
+                </div>
+                
+                <div class="form-group">
+                    <label>Phone Number <span class="required">*</span></label>
+                    <input type="tel" name="phone" id="enrollment-phone" required>
+                    <div class="error-message" id="phone-error"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Additional Notes</label>
+                    <textarea name="notes" id="enrollment-notes" rows="3"></textarea>
+                </div>
+                
+                <button type="submit" class="submit-enrollment">Complete Enrollment</button>
+            </form>
+        </div>
+        
+        <div class="success-message" id="success-message">
+            <i class="fas fa-check-circle"></i>
+            <h3>Enrollment Successful!</h3>
+            <p>Thank you for enrolling. We've sent a confirmation to your email.</p>
+            <button class="close-success">Close</button>
+        </div>
+    </div>
+</div>
+<!-- Add this section before the footer -->
+<section class="section" id="thank-you" style="display: none;">
+    <div class="container">
+        <div class="thank-you-content" style="text-align: center; padding: 40px 0;">
+            <i class="fas fa-check-circle" style="font-size: 4rem; color: #4CAF50; margin-bottom: 20px;"></i>
+            <h2>Enrollment Successful!</h2>
+            <p style="max-width: 600px; margin: 0 auto 30px;">Thank you for enrolling in our course. We've sent a confirmation to your email.</p>
+            <div id="enrollment-details" style="background: #f5f5f5; padding: 20px; border-radius: 10px; max-width: 600px; margin: 0 auto; text-align: left;"></div>
+            <a href="#categories" class="cta-button" style="margin-top: 30px;">Browse More Courses</a>
+        </div>
+    </div>
+</section>
+<script>
+// Enrollment System
+const enrollmentModal = document.getElementById('enrollment-modal');
+const closeModal = document.getElementById('close-modal');
+const enrollmentForm = document.getElementById('enrollment-form');
+const successMessage = document.getElementById('success-message');
+const enrollmentFormContainer = document.getElementById('enrollment-form-container');
+const closeSuccess = document.querySelector('.close-success');
+const phoneError = document.getElementById('phone-error');
+const thankYouSection = document.getElementById('thank-you');
+const enrollmentDetails = document.getElementById('enrollment-details');
+
+// Function to handle enrollment
+function handleEnrollment(courseCard) {
+    // Get course details
+    const courseTitle = courseCard.querySelector('.course-title').textContent;
+    const courseInstructor = courseCard.querySelector('.course-instructor span').textContent;
+    const coursePrice = courseCard.querySelector('.course-price').textContent;
+    const courseCategory = courseCard.dataset.category;
+    
+    // Get user data from localStorage
+    const user = JSON.parse(localStorage.getItem('eliteUser'));
+    
+    if (!user) {
+        alert('Please login first');
+        showLogin();
+        return;
+    }
+    
+    // Fill the form
+    document.getElementById('enrollment-name').value = user.username;
+    document.getElementById('enrollment-email').value = user.email;
+    document.getElementById('enrollment-course-title').value = courseTitle;
+    document.getElementById('enrollment-course-instructor').value = courseInstructor;
+    document.getElementById('enrollment-course-price').value = coursePrice;
+    document.getElementById('enrollment-course-category').value = courseCategory;
+    
+    // Show the modal
+    enrollmentModal.classList.add('active');
+    document.body.classList.add('modal-open');
+}
+
+// Add click event to enroll buttons
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('cta-button') && e.target.textContent === 'Enroll Now') {
+        e.preventDefault();
+        const courseCard = e.target.closest('.course-card');
+        handleEnrollment(courseCard);
+    }
+});
+
+// Close modal
+closeModal.addEventListener('click', function() {
+    enrollmentModal.classList.remove('active');
+    document.body.classList.remove('modal-open');
+});
+
+// Close success message
+closeSuccess.addEventListener('click', function() {
+    enrollmentModal.classList.remove('active');
+    document.body.classList.remove('modal-open');
+    enrollmentFormContainer.style.display = 'block';
+    successMessage.style.display = 'none';
+    enrollmentForm.reset();
+});
+
+// Form validation and submission
+enrollmentForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    // Validate phone number
+    const phone = document.getElementById('enrollment-phone').value.trim();
+    const phoneRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+    
+    if (!phone) {
+        phoneError.textContent = 'Phone number is required';
+        return;
+    }
+    
+    if (!phoneRegex.test(phone)) {
+        phoneError.textContent = 'Please enter a valid phone number';
+        return;
+    }
+    
+    phoneError.textContent = '';
+    
+    // Show loading state
+    const submitBtn = this.querySelector('.submit-enrollment');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Processing...';
+    submitBtn.disabled = true;
+    
+    try {
+        // Get form data
+        const formData = new FormData(this);
+        const user = JSON.parse(localStorage.getItem('eliteUser'));
+        
+        // Create enrollment details for display
+        const enrollmentDetailsHTML = `
+            <h3 style="margin-bottom: 15px; color: var(--primary-color);">Your Enrollment Details:</h3>
+            <p><strong>Course:</strong> ${formData.get('course_title')}</p>
+            <p><strong>Instructor:</strong> ${formData.get('course_instructor')}</p>
+            <p><strong>Price:</strong> ${formData.get('course_price')}</p>
+            <p><strong>Student Name:</strong> ${formData.get('name')}</p>
+            <p><strong>Email:</strong> ${formData.get('email')}</p>
+            <p><strong>Phone:</strong> ${formData.get('phone')}</p>
+            ${formData.get('notes') ? `<p><strong>Notes:</strong> ${formData.get('notes')}</p>` : ''}
+            <p style="margin-top: 20px; font-style: italic;">We'll contact you shortly with further instructions.</p>
+        `;
+        
+        // In a real implementation, you would use:
+        // const response = await fetch('https://api.web3forms.com/submit', {
+        //     method: 'POST',
+        //     body: formData
+        // });
+        // const data = await response.json();
+        
+        // For demo purposes, we'll simulate a successful submission
+        const data = { success: true };
+        
+        if (data.success) {
+            // Hide modal and show thank you section
+            enrollmentModal.classList.remove('active');
+            document.body.classList.remove('modal-open');
+            thankYouSection.style.display = 'block';
+            enrollmentDetails.innerHTML = enrollmentDetailsHTML;
+            
+            // Scroll to thank you section
+            thankYouSection.scrollIntoView({ behavior: 'smooth' });
+            
+            // Reset form
+            enrollmentForm.reset();
+            enrollmentFormContainer.style.display = 'block';
+            successMessage.style.display = 'none';
+        } else {
+            alert('Submission failed. Please try again.');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again.');
+    } finally {
+        // Reset button
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+    }
+});
+
+// Close modal when clicking outside
+enrollmentModal.addEventListener('click', function(e) {
+    if (e.target === enrollmentModal) {
+        enrollmentModal.classList.remove('active');
+        document.body.classList.remove('modal-open');
+        enrollmentFormContainer.style.display = 'block';
+        successMessage.style.display = 'none';
+        enrollmentForm.reset();
+    }
+});
+
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+    <script defer>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // --- NEW LOGIN SYSTEM ---
+        const loginSection = document.getElementById('login-section');
+        const mainContentWrapper = document.getElementById('main-content-wrapper');
+        const loginForm = document.getElementById('login-form');
+        const usernameInput = document.getElementById('username');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const authButton = document.getElementById('auth-button');
+        const preloader = document.getElementById('preloader');
+
+        const showMainContent = (username) => {
+            loginSection.classList.add('hidden');
+            mainContentWrapper.style.display = 'block';
+            if(authButton) {
+                authButton.textContent = 'Log Out';
+                authButton.href = '#'; 
+                authButton.addEventListener('click', handleLogout, { once: true });
+            }
+            // Now that the main content is visible, initialize its scripts
+            initializePageScripts();
+        };
+
+        const showLogin = () => {
+            loginSection.classList.remove('hidden');
+            mainContentWrapper.style.display = 'none';
+            // Hide preloader now that the login form is ready
+            if (preloader) {
+                preloader.classList.add('loaded');
+                preloader.addEventListener('transitionend', () => preloader.remove());
+            }
+        };
+
+        const handleLogout = (e) => {
+            e.preventDefault();
+            localStorage.removeItem('eliteUser');
+            window.location.reload();
+        };
+        
+        const validateEmail = (email) => {
+            const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
+        };
+        
+        const validatePassword = (password) => {
+            const re = /^\d{6}$/;
+            return re.test(password);
+        };
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let isValid = true;
+            
+            document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+
+            const username = usernameInput.value.trim();
+            const email = emailInput.value.trim();
+            const password = passwordInput.value.trim();
+
+            if (username === '') {
+                usernameInput.nextElementSibling.textContent = 'Username cannot be empty.';
+                isValid = false;
+            }
+            if (!validateEmail(email)) {
+                emailInput.nextElementSibling.textContent = 'Please enter a valid email address.';
+                isValid = false;
+            }
+            if (!validatePassword(password)) {
+                passwordInput.nextElementSibling.textContent = 'Password must be exactly 6 digits.';
+                isValid = false;
+            }
+            
+            if (isValid) {
+                // IMPORTANT: Storing passwords in localStorage is not secure and is only done here for demonstration purposes.
+                const user = { username, email, password };
+                localStorage.setItem('eliteUser', JSON.stringify(user));
+                showMainContent(user.username);
+            }
+        });
+
+        // This function will run all the original scripts for the main page
+        const initializePageScripts = () => {
+            // ORIGINAL SCRIPT LOGIC STARTS HERE
+            window.addEventListener('load', () => {
+                if (preloader) {
+                    preloader.classList.add('loaded');
+                    preloader.addEventListener('transitionend', () => preloader.remove());
+                }
+            });
+
+            const header = document.getElementById('main-header');
+            window.addEventListener('scroll', () => {
+                header.classList.toggle('scrolled', window.scrollY > 50);
+            });
+
+            if ("IntersectionObserver" in window) {
+                const revealObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const elementsToAnimate = entry.target.classList.contains('reveal') ? [entry.target] : entry.target.querySelectorAll('.reveal');
+                            elementsToAnimate.forEach((el, index) => {
+                                el.style.transitionDelay = `${index * 100}ms`;
+                                el.classList.add('active');
+                            });
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                document.querySelectorAll('.stats-grid, .course-grid, .section-title, .hero .container, #testimonials .container, #join-now .container').forEach(el => revealObserver.observe(el));
+            }
+
+            if (typeof Typed !== 'undefined' && document.querySelector('.typed-text')) {
+                new Typed('.typed-text', { strings: ["Successful Career", "Brighter Future", "New Skill", "Better Job"], typeSpeed: 70, backSpeed: 50, backDelay: 1500, loop: true });
+            }
+            
+            const statsSection = document.getElementById('stats');
+            if (statsSection && "IntersectionObserver" in window) {
+                const animateStats = (entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            document.querySelectorAll('.stat-item h3').forEach(stat => {
+                                const targetText = stat.dataset.target;
+                                const target = parseInt(targetText.replace(/[^\d]/g, ''));
+                                const suffix = targetText.replace(/[\d]/g, '');
+                                const duration = 2000;
+                                let startTimestamp = null;
+                                const step = (timestamp) => {
+                                    if (!startTimestamp) startTimestamp = timestamp;
+                                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                                    stat.textContent = Math.floor(progress * target) + suffix;
+                                    if (progress < 1) window.requestAnimationFrame(step);
+                                    else stat.textContent = targetText;
+                                };
+                                window.requestAnimationFrame(step);
+                            });
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                };
+                new IntersectionObserver(animateStats, { threshold: 0.5 }).observe(statsSection);
+            }
+
+            const tabs = document.querySelectorAll('.tab-btn');
+            const courseCards = document.querySelectorAll('.course-card');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    const category = tab.dataset.category;
+                    courseCards.forEach(card => {
+                        card.classList.toggle('hidden', category !== 'all' && card.dataset.category !== category);
+                    });
+                });
+            });
+
+            if (typeof Swiper !== 'undefined' && document.querySelector('.testimonial-swiper')) {
+                new Swiper('.testimonial-swiper', {
+                    slidesPerView: 1, spaceBetween: 30, loop: true,
+                    autoplay: { delay: 5000, disableOnInteraction: false },
+                    pagination: { el: '.swiper-pagination', clickable: true },
+                    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+                    breakpoints: { 600: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
+                });
+            }
+
+            const mobileSearchIcon = document.getElementById('mobile-search-icon');
+            const searchOverlay = document.getElementById('search-overlay');
+            const searchOverlayClose = document.getElementById('search-overlay-close');
+            if (mobileSearchIcon && searchOverlay && searchOverlayClose) {
+                mobileSearchIcon.addEventListener('click', () => searchOverlay.classList.add('active'));
+                searchOverlayClose.addEventListener('click', () => searchOverlay.classList.remove('active'));
+                searchOverlay.addEventListener('click', (e) => { if (e.target === searchOverlay) searchOverlay.classList.remove('active'); });
+            }
+
+            const navLinks = document.querySelectorAll('a[href^="#"]');
+            const sections = document.querySelectorAll('main > section[id]');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (this.getAttribute('href') === '#' || this.id === 'auth-button') return;
+                    const targetEl = document.querySelector(this.getAttribute('href'));
+                    if (targetEl) {
+                        e.preventDefault();
+                        targetEl.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+            
+            const observerOptions = { rootMargin: "-30% 0px -70% 0px" };
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        document.querySelectorAll('.bottom-nav a').forEach(link => {
+                            link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+                        });
+                    }
+                });
+            }, observerOptions);
+            sections.forEach(section => sectionObserver.observe(section));
+            // ORIGINAL SCRIPT LOGIC ENDS HERE
+        };
+
+        // --- Check login status on initial page load ---
+        const checkLoginStatus = () => {
+            const storedUser = localStorage.getItem('eliteUser');
+            if (storedUser) {
+                const user = JSON.parse(storedUser);
+                showMainContent(user.username);
+            } else {
+                showLogin();
+            }
+        };
+
+        checkLoginStatus(); // Initial check to start the app
+    });
+    // Enrollment System
+const enrollmentModal = document.getElementById('enrollment-modal');
+const closeModal = document.getElementById('close-modal');
+const enrollmentForm = document.getElementById('enrollment-form');
+const successMessage = document.getElementById('success-message');
+const enrollmentFormContainer = document.getElementById('enrollment-form-container');
+const closeSuccess = document.querySelector('.close-success');
+const phoneError = document.getElementById('phone-error');
+
+// Function to handle enrollment
+function handleEnrollment(courseCard) {
+    // Get course details
+    const courseTitle = courseCard.querySelector('.course-title').textContent;
+    const courseInstructor = courseCard.querySelector('.course-instructor span').textContent;
+    const coursePrice = courseCard.querySelector('.course-price').textContent;
+    const courseCategory = courseCard.dataset.category;
+    
+    // Get user data from localStorage
+    const user = JSON.parse(localStorage.getItem('eliteUser'));
+    
+    if (!user) {
+        alert('Please login first');
+        showLogin();
+        return;
+    }
+    
+    // Fill the form
+    document.getElementById('enrollment-name').value = user.username;
+    document.getElementById('enrollment-email').value = user.email;
+    document.getElementById('enrollment-course-title').value = courseTitle;
+    document.getElementById('enrollment-course-instructor').value = courseInstructor;
+    document.getElementById('enrollment-course-price').value = coursePrice;
+    document.getElementById('enrollment-course-category').value = courseCategory;
+    
+    // Show the modal
+    enrollmentModal.classList.add('active');
+}
+
+// Add click event to enroll buttons
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('cta-button') && e.target.textContent === 'Enroll Now') {
+        e.preventDefault();
+        const courseCard = e.target.closest('.course-card');
+        handleEnrollment(courseCard);
+    }
+});
+
+// Close modal
+closeModal.addEventListener('click', function() {
+    enrollmentModal.classList.remove('active');
+});
+
+// Close success message
+closeSuccess.addEventListener('click', function() {
+    enrollmentModal.classList.remove('active');
+    enrollmentFormContainer.style.display = 'block';
+    successMessage.style.display = 'none';
+    enrollmentForm.reset();
+});
+
+// Form validation
+enrollmentForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Validate phone number
+    const phone = document.getElementById('enrollment-phone').value.trim();
+    const phoneRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+    
+    if (!phone) {
+        phoneError.textContent = 'Phone number is required';
+        return;
+    }
+    
+    if (!phoneRegex.test(phone)) {
+        phoneError.textContent = 'Please enter a valid phone number';
+        return;
+    }
+    
+    phoneError.textContent = '';
+    
+    // Show loading state
+    const submitBtn = this.querySelector('.submit-enrollment');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Processing...';
+    submitBtn.disabled = true;
+    
+    // Simulate form submission (replace with actual Web3Forms submission)
+    setTimeout(() => {
+        enrollmentFormContainer.style.display = 'none';
+        successMessage.style.display = 'block';
+        
+        // Reset button
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+        
+        // In production, you would use:
+        // this.submit();
+    }, 1500);
+});
+
+// Close modal when clicking outside
+enrollmentModal.addEventListener('click', function(e) {
+    if (e.target === enrollmentModal) {
+        enrollmentModal.classList.remove('active');
+        enrollmentFormContainer.style.display = 'block';
+        successMessage.style.display = 'none';
+        enrollmentForm.reset();
+    }
+});
+    </script>
+</body>
+</html>
