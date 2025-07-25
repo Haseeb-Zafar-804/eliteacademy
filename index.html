@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -791,14 +792,14 @@
     <!-- Enrollment Modal -->
 <div class="enrollment-modal" id="enrollment-modal">
     <div class="modal-content">
-        <span class="close-modal" id="close-modal">&times;</span>
+        <span class="close-modal" id="close-modal">×</span>
         
         <div id="enrollment-form-container">
             <h2>Complete Your Enrollment</h2>
             <p>Please review your information and submit</p>
             
             <form id="enrollment-form" class="enrollment-form" action="https://api.web3forms.com/submit" method="POST">
-                <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY">
+                <input type="hidden" name="access_key" value="9c0dc60b-4afe-4c0d-b953-cf8767abbed9">
                 <input type="hidden" name="redirect" value="https://yourwebsite.com/thank-you">
                 <input type="hidden" name="course_title" id="enrollment-course-title">
                 <input type="hidden" name="course_instructor" id="enrollment-course-instructor">
@@ -850,492 +851,344 @@
         </div>
     </div>
 </section>
+
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+
 <script>
-// Enrollment System
-const enrollmentModal = document.getElementById('enrollment-modal');
-const closeModal = document.getElementById('close-modal');
-const enrollmentForm = document.getElementById('enrollment-form');
-const successMessage = document.getElementById('success-message');
-const enrollmentFormContainer = document.getElementById('enrollment-form-container');
-const closeSuccess = document.querySelector('.close-success');
-const phoneError = document.getElementById('phone-error');
-const thankYouSection = document.getElementById('thank-you');
-const enrollmentDetails = document.getElementById('enrollment-details');
+document.addEventListener('DOMContentLoaded', () => {
 
-// Function to handle enrollment
-function handleEnrollment(courseCard) {
-    // Get course details
-    const courseTitle = courseCard.querySelector('.course-title').textContent;
-    const courseInstructor = courseCard.querySelector('.course-instructor span').textContent;
-    const coursePrice = courseCard.querySelector('.course-price').textContent;
-    const courseCategory = courseCard.dataset.category;
-    
-    // Get user data from localStorage
-    const user = JSON.parse(localStorage.getItem('eliteUser'));
-    
-    if (!user) {
-        alert('Please login first');
-        showLogin();
-        return;
-    }
-    
-    // Fill the form
-    document.getElementById('enrollment-name').value = user.username;
-    document.getElementById('enrollment-email').value = user.email;
-    document.getElementById('enrollment-course-title').value = courseTitle;
-    document.getElementById('enrollment-course-instructor').value = courseInstructor;
-    document.getElementById('enrollment-course-price').value = coursePrice;
-    document.getElementById('enrollment-course-category').value = courseCategory;
-    
-    // Show the modal
-    enrollmentModal.classList.add('active');
-    document.body.classList.add('modal-open');
-}
+    // --- Enrollment System ---
+    const enrollmentModal = document.getElementById('enrollment-modal');
+    const closeModal = document.getElementById('close-modal');
+    const enrollmentForm = document.getElementById('enrollment-form');
+    const successMessage = document.getElementById('success-message');
+    const enrollmentFormContainer = document.getElementById('enrollment-form-container');
+    const closeSuccess = document.querySelector('.close-success');
+    const phoneInput = document.getElementById('enrollment-phone');
+    const phoneError = document.getElementById('phone-error');
+    const thankYouSection = document.getElementById('thank-you');
+    const enrollmentDetails = document.getElementById('enrollment-details');
 
-// Add click event to enroll buttons
-document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('cta-button') && e.target.textContent === 'Enroll Now') {
-        e.preventDefault();
-        const courseCard = e.target.closest('.course-card');
-        handleEnrollment(courseCard);
-    }
-});
-
-// Close modal
-closeModal.addEventListener('click', function() {
-    enrollmentModal.classList.remove('active');
-    document.body.classList.remove('modal-open');
-});
-
-// Close success message
-closeSuccess.addEventListener('click', function() {
-    enrollmentModal.classList.remove('active');
-    document.body.classList.remove('modal-open');
-    enrollmentFormContainer.style.display = 'block';
-    successMessage.style.display = 'none';
-    enrollmentForm.reset();
-});
-
-// Form validation and submission
-enrollmentForm.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    
-    // Validate phone number
-    const phone = document.getElementById('enrollment-phone').value.trim();
-    const phoneRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
-    
-    if (!phone) {
-        phoneError.textContent = 'Phone number is required';
-        return;
-    }
-    
-    if (!phoneRegex.test(phone)) {
-        phoneError.textContent = 'Please enter a valid phone number';
-        return;
-    }
-    
-    phoneError.textContent = '';
-    
-    // Show loading state
-    const submitBtn = this.querySelector('.submit-enrollment');
-    const originalText = submitBtn.textContent;
-    submitBtn.textContent = 'Processing...';
-    submitBtn.disabled = true;
-    
-    try {
-        // Get form data
-        const formData = new FormData(this);
+    function handleEnrollment(courseCard) {
         const user = JSON.parse(localStorage.getItem('eliteUser'));
-        
-        // Create enrollment details for display
-        const enrollmentDetailsHTML = `
-            <h3 style="margin-bottom: 15px; color: var(--primary-color);">Your Enrollment Details:</h3>
-            <p><strong>Course:</strong> ${formData.get('course_title')}</p>
-            <p><strong>Instructor:</strong> ${formData.get('course_instructor')}</p>
-            <p><strong>Price:</strong> ${formData.get('course_price')}</p>
-            <p><strong>Student Name:</strong> ${formData.get('name')}</p>
-            <p><strong>Email:</strong> ${formData.get('email')}</p>
-            <p><strong>Phone:</strong> ${formData.get('phone')}</p>
-            ${formData.get('notes') ? `<p><strong>Notes:</strong> ${formData.get('notes')}</p>` : ''}
-            <p style="margin-top: 20px; font-style: italic;">We'll contact you shortly with further instructions.</p>
-        `;
-        
-        // In a real implementation, you would use:
-        // const response = await fetch('https://api.web3forms.com/submit', {
-        //     method: 'POST',
-        //     body: formData
-        // });
-        // const data = await response.json();
-        
-        // For demo purposes, we'll simulate a successful submission
-        const data = { success: true };
-        
-        if (data.success) {
-            // Hide modal and show thank you section
-            enrollmentModal.classList.remove('active');
-            document.body.classList.remove('modal-open');
-            thankYouSection.style.display = 'block';
-            enrollmentDetails.innerHTML = enrollmentDetailsHTML;
-            
-            // Scroll to thank you section
-            thankYouSection.scrollIntoView({ behavior: 'smooth' });
-            
-            // Reset form
-            enrollmentForm.reset();
-            enrollmentFormContainer.style.display = 'block';
-            successMessage.style.display = 'none';
-        } else {
-            alert('Submission failed. Please try again.');
+        if (!user) {
+            alert('Please sign in to enroll.');
+            showLogin();
+            return;
         }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('An error occurred. Please try again.');
-    } finally {
-        // Reset button
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-    }
-});
 
-// Close modal when clicking outside
-enrollmentModal.addEventListener('click', function(e) {
-    if (e.target === enrollmentModal) {
-        enrollmentModal.classList.remove('active');
-        document.body.classList.remove('modal-open');
+        const courseTitle = courseCard.querySelector('.course-title').textContent;
+        const courseInstructor = courseCard.querySelector('.course-instructor span').textContent;
+        const coursePrice = courseCard.querySelector('.course-price').textContent;
+        const courseCategory = courseCard.dataset.category;
+
+        document.getElementById('enrollment-name').value = user.username;
+        document.getElementById('enrollment-email').value = user.email;
+        document.getElementById('enrollment-course-title').value = courseTitle;
+        document.getElementById('enrollment-course-instructor').value = courseInstructor;
+        document.getElementById('enrollment-course-price').value = coursePrice;
+        document.getElementById('enrollment-course-category').value = courseCategory;
+
+        enrollmentForm.reset(); // Reset form fields
+        phoneError.textContent = ''; // Clear previous errors
         enrollmentFormContainer.style.display = 'block';
         successMessage.style.display = 'none';
-        enrollmentForm.reset();
+
+        enrollmentModal.classList.add('active');
+        document.body.classList.add('modal-open');
     }
-});
 
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
-    <script defer>
-    document.addEventListener('DOMContentLoaded', () => {
+    function closeEnrollmentModal() {
+        enrollmentModal.classList.remove('active');
+        document.body.classList.remove('modal-open');
+    }
 
-        // --- NEW LOGIN SYSTEM ---
-        const loginSection = document.getElementById('login-section');
-        const mainContentWrapper = document.getElementById('main-content-wrapper');
-        const loginForm = document.getElementById('login-form');
-        const usernameInput = document.getElementById('username');
-        const emailInput = document.getElementById('email');
-        const passwordInput = document.getElementById('password');
-        const authButton = document.getElementById('auth-button');
-        const preloader = document.getElementById('preloader');
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('cta-button') && e.target.textContent === 'Enroll Now') {
+            e.preventDefault();
+            const courseCard = e.target.closest('.course-card');
+            handleEnrollment(courseCard);
+        }
+    });
 
-        const showMainContent = (username) => {
-            loginSection.classList.add('hidden');
-            mainContentWrapper.style.display = 'block';
-            if(authButton) {
-                authButton.textContent = 'Log Out';
-                authButton.href = '#'; 
-                authButton.addEventListener('click', handleLogout, { once: true });
+    closeModal.addEventListener('click', closeEnrollmentModal);
+    closeSuccess.addEventListener('click', closeEnrollmentModal);
+    enrollmentModal.addEventListener('click', (e) => {
+        if (e.target === enrollmentModal) {
+            closeEnrollmentModal();
+        }
+    });
+
+    enrollmentForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const phone = phoneInput.value.trim();
+        if (!phone) {
+            phoneError.textContent = 'Phone number is required.';
+            return;
+        }
+        if (!/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(phone)) {
+            phoneError.textContent = 'Please enter a valid phone number.';
+            return;
+        }
+        phoneError.textContent = '';
+
+        const submitBtn = this.querySelector('.submit-enrollment');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Processing...';
+        submitBtn.disabled = true;
+
+        try {
+            const formData = new FormData(this);
+            const accessKey = formData.get('access_key');
+
+            // --- CORRECTED THIS LINE ---
+            // The check is now for a placeholder key, not your actual key.
+            if (!accessKey || accessKey === 'YOUR_WEB3FORMS_ACCESS_KEY') {
+                alert('Form submission is not configured. Please add a valid Web3Forms Access Key.');
+                throw new Error("Access Key not provided.");
             }
-            // Now that the main content is visible, initialize its scripts
-            initializePageScripts();
-        };
+            
+            const response = await fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                body: formData
+            });
 
-        const showLogin = () => {
-            loginSection.classList.remove('hidden');
-            mainContentWrapper.style.display = 'none';
-            // Hide preloader now that the login form is ready
+            const data = await response.json();
+
+            if (data.success) {
+                const enrollmentDetailsHTML = `
+                    <h3 style="margin-bottom: 15px; color: var(--primary-color);">Your Enrollment Details:</h3>
+                    <p><strong>Course:</strong> ${formData.get('course_title')}</p>
+                    <p><strong>Instructor:</strong> ${formData.get('course_instructor')}</p>
+                    <p><strong>Price:</strong> ${formData.get('course_price')}</p>
+                    <p><strong>Student Name:</strong> ${formData.get('name')}</p>
+                    <p><strong>Email:</strong> ${formData.get('email')}</p>
+                    <p><strong>Phone:</strong> ${formData.get('phone')}</p>
+                    ${formData.get('notes') ? `<p><strong>Notes:</strong> ${formData.get('notes')}</p>` : ''}
+                    <p style="margin-top: 20px; font-style: italic;">We'll contact you shortly with further instructions.</p>
+                `;
+
+                closeEnrollmentModal();
+                thankYouSection.style.display = 'block';
+                enrollmentDetails.innerHTML = enrollmentDetailsHTML;
+                thankYouSection.scrollIntoView({ behavior: 'smooth' });
+                this.reset();
+            } else {
+                console.error("API Error:", data);
+                alert(data.message || "An error occurred while submitting the form.");
+            }
+        } catch (error) {
+            console.error('Submission Error:', error);
+            alert('Could not submit the form. Please check your connection and try again.');
+        } finally {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        }
+    });
+
+
+    // --- Login System & Page Initialization (No changes needed here) ---
+    const loginSection = document.getElementById('login-section');
+    const mainContentWrapper = document.getElementById('main-content-wrapper');
+    const loginForm = document.getElementById('login-form');
+    const usernameInput = document.getElementById('username');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const authButton = document.getElementById('auth-button');
+    const preloader = document.getElementById('preloader');
+
+    const showMainContent = (username) => {
+        loginSection.classList.add('hidden');
+        mainContentWrapper.style.display = 'block';
+        if(authButton) {
+            authButton.textContent = 'Log Out';
+            authButton.href = '#'; 
+            authButton.addEventListener('click', handleLogout, { once: true });
+        }
+        initializePageScripts();
+    };
+
+    const showLogin = () => {
+        loginSection.classList.remove('hidden');
+        mainContentWrapper.style.display = 'none';
+        if (preloader) {
+            preloader.classList.add('loaded');
+            preloader.addEventListener('transitionend', () => preloader.remove());
+        }
+    };
+
+    const handleLogout = (e) => {
+        e.preventDefault();
+        localStorage.removeItem('eliteUser');
+        window.location.reload();
+    };
+    
+    const validateEmail = (email) => /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(String(email).toLowerCase());
+    const validatePassword = (password) => /^\d{6}$/.test(password);
+
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let isValid = true;
+        document.querySelectorAll('#login-form .error-message').forEach(el => el.textContent = '');
+
+        const username = usernameInput.value.trim();
+        const email = emailInput.value.trim();
+        const password = passwordInput.value.trim();
+
+        if (username === '') {
+            usernameInput.nextElementSibling.textContent = 'Username cannot be empty.';
+            isValid = false;
+        }
+        if (!validateEmail(email)) {
+            emailInput.nextElementSibling.textContent = 'Please enter a valid email address.';
+            isValid = false;
+        }
+        if (!validatePassword(password)) {
+            passwordInput.nextElementSibling.textContent = 'Password must be exactly 6 digits.';
+            isValid = false;
+        }
+        
+        if (isValid) {
+            const user = { username, email, password };
+            localStorage.setItem('eliteUser', JSON.stringify(user));
+            showMainContent(user.username);
+        }
+    });
+
+    const initializePageScripts = () => {
+        window.addEventListener('load', () => {
             if (preloader) {
                 preloader.classList.add('loaded');
                 preloader.addEventListener('transitionend', () => preloader.remove());
             }
-        };
-
-        const handleLogout = (e) => {
-            e.preventDefault();
-            localStorage.removeItem('eliteUser');
-            window.location.reload();
-        };
-        
-        const validateEmail = (email) => {
-            const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            return re.test(String(email).toLowerCase());
-        };
-        
-        const validatePassword = (password) => {
-            const re = /^\d{6}$/;
-            return re.test(password);
-        };
-
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            let isValid = true;
-            
-            document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
-
-            const username = usernameInput.value.trim();
-            const email = emailInput.value.trim();
-            const password = passwordInput.value.trim();
-
-            if (username === '') {
-                usernameInput.nextElementSibling.textContent = 'Username cannot be empty.';
-                isValid = false;
-            }
-            if (!validateEmail(email)) {
-                emailInput.nextElementSibling.textContent = 'Please enter a valid email address.';
-                isValid = false;
-            }
-            if (!validatePassword(password)) {
-                passwordInput.nextElementSibling.textContent = 'Password must be exactly 6 digits.';
-                isValid = false;
-            }
-            
-            if (isValid) {
-                // IMPORTANT: Storing passwords in localStorage is not secure and is only done here for demonstration purposes.
-                const user = { username, email, password };
-                localStorage.setItem('eliteUser', JSON.stringify(user));
-                showMainContent(user.username);
-            }
         });
 
-        // This function will run all the original scripts for the main page
-        const initializePageScripts = () => {
-            // ORIGINAL SCRIPT LOGIC STARTS HERE
-            window.addEventListener('load', () => {
-                if (preloader) {
-                    preloader.classList.add('loaded');
-                    preloader.addEventListener('transitionend', () => preloader.remove());
-                }
-            });
+        const header = document.getElementById('main-header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 50);
+        });
 
-            const header = document.getElementById('main-header');
-            window.addEventListener('scroll', () => {
-                header.classList.toggle('scrolled', window.scrollY > 50);
-            });
-
-            if ("IntersectionObserver" in window) {
-                const revealObserver = new IntersectionObserver((entries, observer) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const elementsToAnimate = entry.target.classList.contains('reveal') ? [entry.target] : entry.target.querySelectorAll('.reveal');
-                            elementsToAnimate.forEach((el, index) => {
-                                el.style.transitionDelay = `${index * 100}ms`;
-                                el.classList.add('active');
-                            });
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.1 });
-                document.querySelectorAll('.stats-grid, .course-grid, .section-title, .hero .container, #testimonials .container, #join-now .container').forEach(el => revealObserver.observe(el));
-            }
-
-            if (typeof Typed !== 'undefined' && document.querySelector('.typed-text')) {
-                new Typed('.typed-text', { strings: ["Successful Career", "Brighter Future", "New Skill", "Better Job"], typeSpeed: 70, backSpeed: 50, backDelay: 1500, loop: true });
-            }
-            
-            const statsSection = document.getElementById('stats');
-            if (statsSection && "IntersectionObserver" in window) {
-                const animateStats = (entries, observer) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            document.querySelectorAll('.stat-item h3').forEach(stat => {
-                                const targetText = stat.dataset.target;
-                                const target = parseInt(targetText.replace(/[^\d]/g, ''));
-                                const suffix = targetText.replace(/[\d]/g, '');
-                                const duration = 2000;
-                                let startTimestamp = null;
-                                const step = (timestamp) => {
-                                    if (!startTimestamp) startTimestamp = timestamp;
-                                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                                    stat.textContent = Math.floor(progress * target) + suffix;
-                                    if (progress < 1) window.requestAnimationFrame(step);
-                                    else stat.textContent = targetText;
-                                };
-                                window.requestAnimationFrame(step);
-                            });
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                };
-                new IntersectionObserver(animateStats, { threshold: 0.5 }).observe(statsSection);
-            }
-
-            const tabs = document.querySelectorAll('.tab-btn');
-            const courseCards = document.querySelectorAll('.course-card');
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    tabs.forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                    const category = tab.dataset.category;
-                    courseCards.forEach(card => {
-                        card.classList.toggle('hidden', category !== 'all' && card.dataset.category !== category);
-                    });
-                });
-            });
-
-            if (typeof Swiper !== 'undefined' && document.querySelector('.testimonial-swiper')) {
-                new Swiper('.testimonial-swiper', {
-                    slidesPerView: 1, spaceBetween: 30, loop: true,
-                    autoplay: { delay: 5000, disableOnInteraction: false },
-                    pagination: { el: '.swiper-pagination', clickable: true },
-                    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-                    breakpoints: { 600: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
-                });
-            }
-
-            const mobileSearchIcon = document.getElementById('mobile-search-icon');
-            const searchOverlay = document.getElementById('search-overlay');
-            const searchOverlayClose = document.getElementById('search-overlay-close');
-            if (mobileSearchIcon && searchOverlay && searchOverlayClose) {
-                mobileSearchIcon.addEventListener('click', () => searchOverlay.classList.add('active'));
-                searchOverlayClose.addEventListener('click', () => searchOverlay.classList.remove('active'));
-                searchOverlay.addEventListener('click', (e) => { if (e.target === searchOverlay) searchOverlay.classList.remove('active'); });
-            }
-
-            const navLinks = document.querySelectorAll('a[href^="#"]');
-            const sections = document.querySelectorAll('main > section[id]');
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    if (this.getAttribute('href') === '#' || this.id === 'auth-button') return;
-                    const targetEl = document.querySelector(this.getAttribute('href'));
-                    if (targetEl) {
-                        e.preventDefault();
-                        targetEl.scrollIntoView({ behavior: 'smooth' });
-                    }
-                });
-            });
-            
-            const observerOptions = { rootMargin: "-30% 0px -70% 0px" };
-            const sectionObserver = new IntersectionObserver((entries) => {
+        if ("IntersectionObserver" in window) {
+            const revealObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        const id = entry.target.getAttribute('id');
-                        document.querySelectorAll('.bottom-nav a').forEach(link => {
-                            link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+                        const elementsToAnimate = entry.target.classList.contains('reveal') ? [entry.target] : entry.target.querySelectorAll('.reveal');
+                        elementsToAnimate.forEach((el, index) => {
+                            el.style.transitionDelay = `${index * 100}ms`;
+                            el.classList.add('active');
                         });
+                        observer.unobserve(entry.target);
                     }
                 });
-            }, observerOptions);
-            sections.forEach(section => sectionObserver.observe(section));
-            // ORIGINAL SCRIPT LOGIC ENDS HERE
-        };
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.stats-grid, .course-grid, .section-title, .hero .container, #testimonials .container, #join-now .container').forEach(el => revealObserver.observe(el));
+        }
 
-        // --- Check login status on initial page load ---
-        const checkLoginStatus = () => {
-            const storedUser = localStorage.getItem('eliteUser');
-            if (storedUser) {
-                const user = JSON.parse(storedUser);
-                showMainContent(user.username);
-            } else {
-                showLogin();
-            }
-        };
-
-        checkLoginStatus(); // Initial check to start the app
-    });
-    // Enrollment System
-const enrollmentModal = document.getElementById('enrollment-modal');
-const closeModal = document.getElementById('close-modal');
-const enrollmentForm = document.getElementById('enrollment-form');
-const successMessage = document.getElementById('success-message');
-const enrollmentFormContainer = document.getElementById('enrollment-form-container');
-const closeSuccess = document.querySelector('.close-success');
-const phoneError = document.getElementById('phone-error');
-
-// Function to handle enrollment
-function handleEnrollment(courseCard) {
-    // Get course details
-    const courseTitle = courseCard.querySelector('.course-title').textContent;
-    const courseInstructor = courseCard.querySelector('.course-instructor span').textContent;
-    const coursePrice = courseCard.querySelector('.course-price').textContent;
-    const courseCategory = courseCard.dataset.category;
-    
-    // Get user data from localStorage
-    const user = JSON.parse(localStorage.getItem('eliteUser'));
-    
-    if (!user) {
-        alert('Please login first');
-        showLogin();
-        return;
-    }
-    
-    // Fill the form
-    document.getElementById('enrollment-name').value = user.username;
-    document.getElementById('enrollment-email').value = user.email;
-    document.getElementById('enrollment-course-title').value = courseTitle;
-    document.getElementById('enrollment-course-instructor').value = courseInstructor;
-    document.getElementById('enrollment-course-price').value = coursePrice;
-    document.getElementById('enrollment-course-category').value = courseCategory;
-    
-    // Show the modal
-    enrollmentModal.classList.add('active');
-}
-
-// Add click event to enroll buttons
-document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('cta-button') && e.target.textContent === 'Enroll Now') {
-        e.preventDefault();
-        const courseCard = e.target.closest('.course-card');
-        handleEnrollment(courseCard);
-    }
-});
-
-// Close modal
-closeModal.addEventListener('click', function() {
-    enrollmentModal.classList.remove('active');
-});
-
-// Close success message
-closeSuccess.addEventListener('click', function() {
-    enrollmentModal.classList.remove('active');
-    enrollmentFormContainer.style.display = 'block';
-    successMessage.style.display = 'none';
-    enrollmentForm.reset();
-});
-
-// Form validation
-enrollmentForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // Validate phone number
-    const phone = document.getElementById('enrollment-phone').value.trim();
-    const phoneRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
-    
-    if (!phone) {
-        phoneError.textContent = 'Phone number is required';
-        return;
-    }
-    
-    if (!phoneRegex.test(phone)) {
-        phoneError.textContent = 'Please enter a valid phone number';
-        return;
-    }
-    
-    phoneError.textContent = '';
-    
-    // Show loading state
-    const submitBtn = this.querySelector('.submit-enrollment');
-    const originalText = submitBtn.textContent;
-    submitBtn.textContent = 'Processing...';
-    submitBtn.disabled = true;
-    
-    // Simulate form submission (replace with actual Web3Forms submission)
-    setTimeout(() => {
-        enrollmentFormContainer.style.display = 'none';
-        successMessage.style.display = 'block';
+        if (typeof Typed !== 'undefined' && document.querySelector('.typed-text')) {
+            new Typed('.typed-text', { strings: ["Successful Career", "Brighter Future", "New Skill", "Better Job"], typeSpeed: 70, backSpeed: 50, backDelay: 1500, loop: true });
+        }
         
-        // Reset button
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-        
-        // In production, you would use:
-        // this.submit();
-    }, 1500);
-});
+        const statsSection = document.getElementById('stats');
+        if (statsSection && "IntersectionObserver" in window) {
+            const animateStats = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        document.querySelectorAll('.stat-item h3').forEach(stat => {
+                            const targetText = stat.dataset.target;
+                            const target = parseInt(targetText.replace(/[^\d]/g, ''));
+                            const suffix = targetText.replace(/[\d]/g, '');
+                            const duration = 2000;
+                            let startTimestamp = null;
+                            const step = (timestamp) => {
+                                if (!startTimestamp) startTimestamp = timestamp;
+                                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                                stat.textContent = Math.floor(progress * target) + suffix;
+                                if (progress < 1) window.requestAnimationFrame(step);
+                                else stat.textContent = targetText;
+                            };
+                            window.requestAnimationFrame(step);
+                        });
+                        observer.unobserve(entry.target);
+                    }
+                });
+            };
+            new IntersectionObserver(animateStats, { threshold: 0.5 }).observe(statsSection);
+        }
 
-// Close modal when clicking outside
-enrollmentModal.addEventListener('click', function(e) {
-    if (e.target === enrollmentModal) {
-        enrollmentModal.classList.remove('active');
-        enrollmentFormContainer.style.display = 'block';
-        successMessage.style.display = 'none';
-        enrollmentForm.reset();
-    }
+        const tabs = document.querySelectorAll('.tab-btn');
+        const courseCards = document.querySelectorAll('.course-card');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                const category = tab.dataset.category;
+                courseCards.forEach(card => {
+                    card.classList.toggle('hidden', category !== 'all' && card.dataset.category !== category);
+                });
+            });
+        });
+
+        if (typeof Swiper !== 'undefined' && document.querySelector('.testimonial-swiper')) {
+            new Swiper('.testimonial-swiper', {
+                slidesPerView: 1, spaceBetween: 30, loop: true,
+                autoplay: { delay: 5000, disableOnInteraction: false },
+                pagination: { el: '.swiper-pagination', clickable: true },
+                navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+                breakpoints: { 600: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
+            });
+        }
+
+        const mobileSearchIcon = document.getElementById('mobile-search-icon');
+        const searchOverlay = document.getElementById('search-overlay');
+        const searchOverlayClose = document.getElementById('search-overlay-close');
+        if (mobileSearchIcon && searchOverlay && searchOverlayClose) {
+            mobileSearchIcon.addEventListener('click', () => searchOverlay.classList.add('active'));
+            searchOverlayClose.addEventListener('click', () => searchOverlay.classList.remove('active'));
+            searchOverlay.addEventListener('click', (e) => { if (e.target === searchOverlay) searchOverlay.classList.remove('active'); });
+        }
+
+        const navLinks = document.querySelectorAll('a[href^="#"]');
+        const sections = document.querySelectorAll('main > section[id]');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (this.getAttribute('href') === '#' || this.id === 'auth-button') return;
+                const targetEl = document.querySelector(this.getAttribute('href'));
+                if (targetEl) {
+                    e.preventDefault();
+                    targetEl.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+        
+        const observerOptions = { rootMargin: "-30% 0px -70% 0px" };
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    document.querySelectorAll('.bottom-nav a').forEach(link => {
+                        link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+                    });
+                }
+            });
+        }, observerOptions);
+        sections.forEach(section => sectionObserver.observe(section));
+    };
+
+    const checkLoginStatus = () => {
+        const storedUser = localStorage.getItem('eliteUser');
+        if (storedUser) {
+            const user = JSON.parse(storedUser);
+            showMainContent(user.username);
+        } else {
+            showLogin();
+        }
+    };
+
+    checkLoginStatus();
 });
-    </script>
+</script>
+
 </body>
 </html>
